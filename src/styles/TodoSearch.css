@@ -1,0 +1,25 @@
+.TodoSearch{
+    display: flex;
+    width: 65%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 3px 10px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 2.6rem;
+    background-color: #CFFFDC;
+}
+.TodoSearch:hover{
+    border: 1px solid var(--color-letra-1);
+}
+.TodoSearch input{
+    border: none;
+    width: 100%;
+    background-color: inherit;
+} 
+.TodoSearch input:focus-visible{
+    border: 1px solid rgba(red, green, blue, 0.5);
+    outline: none;
+}

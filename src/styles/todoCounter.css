@@ -1,0 +1,12 @@
+header {
+    margin: 20px;
+    color: var(--color-letra-1);
+    opacity: 1.9;
+    text-align: center;
+}
+.header__title--first {
+    font-size: 4rem;
+}
+.header__title--second{
+    font-size: 2rem;
+}

@@ -1,9 +1,11 @@
 import React from "react"
+import "../styles/TodoSearch.css"
 
 export default function TodoSearch() {
     return (
-        <React.Fragment>
-            <input placeholder='Cebolla' />
-        </React.Fragment>
+        <div className="TodoSearch">
+            <input placeholder='Busca tu Task' />
+            <i>+</i>
+        </div>
     )
 }
