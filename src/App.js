@@ -1,9 +1,10 @@
 import './App.css';
 import React from 'react';
-import { TodoCounter } from './todoCounter';
-import TodoSearch from "./todoSearch"
-import { TodoList } from "./todoList"
-import TodoItem from "./todoItem"
+import { TodoCounter } from './components/todoCounter';
+import TodoSearch from "./components/todoSearch"
+import { TodoList } from "./components/todoList"
+import TodoItem from "./components/todoItem"
+import {TodoButton} from "./components/todoButton"
 
 const todos = [
   {
@@ -36,8 +37,7 @@ function App() {
         }
       </TodoList> 
 
-      {/* <TodoButton /> */}
-      <button>+</button>
+      <TodoButton />
     </React.Fragment>
   );
 }
