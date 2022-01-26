@@ -1,23 +1,27 @@
 import React from "react";
 import "../styles/TodoItem.css"
+import images from "../assets/images"
 
 function TodoItem (props){
+
+    const checkGreen = images.checkGreen
+    const checkBlack = images.checkBlack
+    
     return(
         <li className="TodoItem">
             <div className="TodoItem__container">
               <img
                 className="TodoItem__check"
-                src="../assets/check.png"
+                src={checkBlack}
                 alt="check"
-                onClick={() => {
-                    alert("Tarea Realizada")
-                }}
+                onClick={props.onComplete}
               />
-              <p>{props.text}</p>
+              <p
+                className={`${props.completed && "TodoItem-p--complete"}`}
+              >{props.text}</p>
               <span
-                onClick={() => {
-                    alert("Borrar tarea")
-                }}
+                className="TodoItem__trash"
+                onClick={props.onDelete}
               >X</span>
             </div>
         </li>

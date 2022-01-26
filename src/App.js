@@ -1,12 +1,7 @@
-import './App.css';
 import React from 'react';
-import { TodoCounter } from './components/todoCounter';
-import TodoSearch from "./components/todoSearch"
-import { TodoList } from "./components/todoList"
-import TodoItem from "./components/todoItem"
-import {TodoButton} from "./components/todoButton"
+import { AppUI } from "./AppUI"
 
-const todos = [
+let defaultTodos = [
   {
     text: "Cortar cebolla",
     completed: true,
@@ -21,7 +16,7 @@ const todos = [
   },
   {
     text: "Hacer Tareas",
-    completed: true,
+    completed: false,
   }
 ]
 
@@ -29,12 +24,12 @@ const todos = [
 function App() {
 
   const [searchValue, setSearchValue] = React.useState("")
-  const [todosList, setTodosList] = React.useState("")
+  const [todosList, setTodosList] = React.useState(defaultTodos)
 
-  const completedTodos = todos.filter(todo => !!todo.completed).length
-  const todosCountdow = todos.length
+  const completedTodos = defaultTodos.filter(todo => !!todo.completed).length
+  const todosCountdow = defaultTodos.length
 
-  const todoListFilter = todos.filter(todo => {
+  const todoListFilter = defaultTodos.filter(todo => {
     const todosFiler = todo.text.toLowerCase()
     const searchFilter = searchValue.toLowerCase()
     return todosFiler.includes(searchFilter)
@@ -43,35 +38,35 @@ function App() {
   let searchTodos = []
 
   if(!searchValue.length >= 1){
-    searchTodos = todos
+    searchTodos = defaultTodos
   }else{
     searchTodos = todoListFilter
   }
 
+  const completeTodos = (text) => {
+    const todoIndex = todosList.findIndex(todo => todo.text === text)
+    const newTodos = [...defaultTodos]
+    newTodos[todoIndex].completed = true
+    setTodosList(newTodos)
+  }
+
+  const deleteTodos = (text) => {
+    // const todoIndex = todosList.findIndex(todo => todo.text === text)
+    const newTodo = defaultTodos.filter(todo => todo.text != text)
+    defaultTodos = [...newTodo]
+    setTodosList(defaultTodos)
+  }
+
   return (
-    <React.Fragment>
-      <TodoCounter
-        total = {todosCountdow}
-        completed = {completedTodos}
-      /> 
-
-      <TodoSearch
-        searchValue = {searchValue}
-        setSearchValue = {setSearchValue}
-      /> 
-
-      <TodoList>
-        {
-          searchTodos.map(todo => (
-          <TodoItem 
-            key={todo.text} 
-            text={todo.text}/>
-          ))
-        }
-      </TodoList> 
-
-      <TodoButton />
-    </React.Fragment>
+    <AppUI 
+      todosCountdow = {todosCountdow}
+      completedTodos = {completedTodos}
+      searchValue = {searchValue}
+      setSearchValue = {setSearchValue}
+      searchTodos = {searchTodos}
+      completeTodos = {completeTodos}
+      deleteTodos = {deleteTodos}
+    />
   );
 }
 

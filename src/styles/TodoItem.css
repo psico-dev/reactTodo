@@ -8,10 +8,8 @@
 
 }
 .TodoItem:hover{
-    cursor: pointer;
     background-color: rgba(219, 146, 241, 0.8);
 }
-
 
 .TodoItem__container{
     display: flex;
@@ -21,8 +19,17 @@
     justify-content: space-between;
     align-items: center;
 }
+.TodoItem-p--complete{
+    text-decoration: line-through;
+}
 .TodoItem__check{
     width: 20px;
     height: 20px;
-    color: black;
+    margin: 10px;
+}
+.TodoItem__trash{
+    margin: 10px;
+}
+.TodoItem__check:hover, .TodoItem__trash:hover{
+    cursor: pointer;
 }
