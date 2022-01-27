@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppUI } from "./AppUI"
+import { TodoList } from './components/todoList';
 
 /*
 
@@ -24,22 +25,35 @@ let defaultTodos = [
 ]
 */
 
+function useLocalStorage (itemName, contain) {
+  const localStorageItem = localStorage.getItem(itemName)
+
+  let parsedItem
+
+  if(!localStorageItem){
+    localStorage.setItem(itemName, JSON.stringify(contain))
+    parsedItem = []
+  } else{
+    parsedItem = JSON.parse(localStorageItem)
+  }
+
+  const [itemList, setItemList] = React.useState(parsedItem)
+
+  const saveItem = newItem =>{
+  const stringifidItem = JSON.stringify(newItem)
+  localStorage.setItem(itemName, stringifidItem)
+  setItemList(newItem)
+  }
+
+  return [itemList, saveItem]
+}
+
 
 function App() {
 
-  const localStorageTodos = localStorage.getItem("VERSION_V1")
-
-  let parsedTodos
-
-  if(!localStorageTodos){
-    localStorage.setItem("VERSION_V1", JSON.stringify([]))
-    parsedTodos = []
-  } else{
-    parsedTodos = JSON.parse(localStorageTodos)
-  }
-
+  const [todosList, saveTodo] = useLocalStorage("VERSION_V1", [])
+ 
   const [searchValue, setSearchValue] = React.useState("")
-  const [todosList, setTodosList] = React.useState(parsedTodos)
 
   const completedTodos = todosList.filter(todo => !!todo.completed).length
   const todosCountdow = todosList.length
@@ -58,11 +72,7 @@ function App() {
     searchTodos = todoListFilter
   }
 
-  const saveTodo = newTodo =>{
-    const stringifidTodos = JSON.stringify(newTodo)
-    localStorage.setItem("VERSION_V1", stringifidTodos)
-    setTodosList(newTodo)
-  }
+
 
   const completeTodos = (text) => {
     const todoIndex = todosList.findIndex(todo => todo.text === text)
@@ -72,10 +82,10 @@ function App() {
   }
 
   const deleteTodos = (text) => {
-    // const todoIndex = todosList.findIndex(todo => todo.text === text)
-    const newTodo = todosList.filter(todo => todo.text != text)
-    parsedTodos = [...newTodo]
-    saveTodo(parsedTodos)
+    const todoIndex = todosList.findIndex(todo => todo.text === text)
+    const newTodo = [...todosList]
+    newTodo.splice(todoIndex, 1)
+    saveTodo(newTodo)
   }
 
   return (
