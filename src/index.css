@@ -13,4 +13,5 @@ body{
   background-image: linear-gradient(160deg, #548cff 0%, #93ffd8 100%);
   min-height: 100vh;
   height: 100%;
+  font-size: 16rem;
 }
