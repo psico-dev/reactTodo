@@ -1,10 +1,14 @@
 import React from "react";
 import "../styles/TodoButton.css"
 
-export function TodoButton(){
+export function TodoButton( {setOpenModal, openModal} ){
 
     const clickButton = () =>{
-        alert("Ahora tendra que salir un agregar Todo")
+        if(!openModal){
+            setOpenModal(true)
+        } else{
+            setOpenModal(false)
+        }
     }
     
     return(
@@ -12,7 +16,9 @@ export function TodoButton(){
           className="TodoButton"
           onClick={clickButton}
           >
-          <button>
+          <button
+            className="button-add-todos"
+          >
               +
           </button>
         </div>
